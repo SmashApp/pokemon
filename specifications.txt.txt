@@ -1,0 +1,80 @@
+Feel free to make updates and changes however you like.
+
+I graded everything with priority 1-3.
+
+Install
+I don't have any clue how installing works.
+
+Account creation
+( Client - 2 )  Display the account creation screen, and accept user input for username and password.
+	Send request for account creation to the server.
+		Parameters: username, password
+		Returns: user object (probably optional actually)
+( Client - 3 ) Allow account creation via Facebook.  ( and then login using it as well )
+
+( Server - 2 ) Accept account creation requests, autogenerate a userID, save the object and return the userID.
+
+Log In
+( Client - 1 ) Display login screen and accept user input for the username and password.
+	Send log in request to the server.
+		Parameters: username, password
+		Returns: user object
+
+( Server - 1 ) Accept login requests and validates.
+	Retrieves user object and returns it to the client.
+
+Start Battle
+( Client - 1 ) Shows menu screen with the option to start a battle with another player.
+	Allows user to select a pokemon to battle with.
+	Sends start battle request to server.
+		Parameters: userID, pokemonID
+		Returns: battle object
+	If the returned battle object does not have another user attached to it, it displays a message that it is waiting for another user.
+
+( Server - 1 ) Accepts start battle request and either creates a new battle object (if someone else isn't already wating for a battle), or adds the user to an existing battle.
+	Sends battle object back to the client
+
+( Client - 1 ) Periodically sends a request to the server to see if anyone has responded to their battle request.
+
+( Server - 1 ) Accepts the waiting for battle start request and returns the battle object.
+
+
+Battling
+( Client - 1 ) Upon receiving a started battle, the client pulls stats about the two pokemon from it's database and chooses a winner.
+	Displays a message saying if you won or lost.
+	Returns to the menu screen.
+
+( Client - 2 ) Upon receiving a battle object with two users it pulls up a battle screen initially blank.
+	Shows both the user and opponent arriving.
+( Client - 3 ) Sends database request to retieve the complete object of the user and displays their customized appearance.
+	Then, based on the pokemon IDs in the battle object, it pulls up images for the user's and opponent's pokemon and displays them.
+	Then accepts user input for selecting which move to use.
+	Sends use move request to the server.
+		Parameters: battleID, userID, moveID
+		Returns: battle object
+	If the returned object has not received both user's move's it dispalys a waiting message.
+
+( Server - 3 ) Handles requests for the user retrieval and gives back all the necessary info.
+
+( Server - 2 ) Handles move request, saving the moveID in the battle object.
+	Does nothing else if only one moveID has been received.
+	Otherwise retrieves the move objects and performs whatever actions necessary to the battle or pokemon objects.
+	Returns the updated battle object.
+
+( Client - 2 ) When a new battle object is received it first finds the changes between the old and new objects.
+	Then pulls the moves from it's database and displays the effects of them.
+	Then returns to previous battle state.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
